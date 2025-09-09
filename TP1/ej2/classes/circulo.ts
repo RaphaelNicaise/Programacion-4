@@ -1,11 +1,15 @@
 import { FiguraGeometrica } from "./figuraGeometrica"; 
 
 export class Circulo extends FiguraGeometrica {
-    constructor(nombre:string){
-        super(nombre)
+    private diametro:number
+
+    constructor(diametro: number ){
+        super()
+        this.diametro = diametro
     }
     
     public override calcularArea(): number {
-        return 1
+        const radio = this.diametro / 2
+        return Math.PI * Math.pow(radio,2)
     }
 }

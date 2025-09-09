@@ -1,11 +1,13 @@
 import { FiguraGeometrica } from "./figuraGeometrica";
 
 export class Cuadrado extends FiguraGeometrica {
-    constructor(nombre:string) {
-        super(nombre)
+    private longitudLado: number
+    constructor (longitudLado: number) {
+        super()
+        this.longitudLado = longitudLado
     }
 
     public override calcularArea(): number {
-        return 1
+        return Math.pow(this.longitudLado, 2)
     }
 }

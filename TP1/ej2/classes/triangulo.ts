@@ -1,11 +1,15 @@
 import { FiguraGeometrica } from "./figuraGeometrica";
 
 export class Triangulo extends FiguraGeometrica {
-    constructor (nombre: string) {
-        super(nombre)
+    private base: number
+    private altura: number
+    constructor (base: number, altura: number) {
+        super()
+        this.base = base
+        this.altura = altura
     }
 
     public override calcularArea():number {
-        return 1
+        return (this.base * this.altura) / 2
     }
 }
