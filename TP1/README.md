@@ -7,24 +7,26 @@
 - Rozas, Manuel
 - Segal, Santiago
 
-2. **Instalar las dependencias**
+1. **Instalar las dependencias**
     ```
     npm install
     ```
 
-Para correr los ejercicios:
-```
-npx ts-node ej1/ej1.ts
-npx ts-node ej2/ej2.ts
-npx ts-node ej3/ej3.ts
-npx ts-node ej4/ej4.ts
-npx ts-node ej5/ej5.ts
-```
+    Para correr los ejercicios:
+    ```
+    npx ts-node ej1/ej1.ts
+    npx ts-node ej2/ej2.ts
+    npx ts-node ej3/ej3.ts
+    npx ts-node ej4/ej4.ts
+    npx ts-node ej5/ej5.ts
+    ```
 
-3. **DIAGRAMAS UML**
+2. **DIAGRAMAS UML**
 
-**PUNTO 3**
+*Diagrama UML del punto 3*
+
 ![PUNTO-3-UML](images/PUNTO-3-UML.png)
 
-**PUNTO 5**
+*Diagrama UML del punto 5*
+
 ![PUNTO-5-UML](images/PUNTO-5-UML.png)
