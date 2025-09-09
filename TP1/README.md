@@ -22,7 +22,7 @@ npx ts-node ej5/ej5.ts
 ```
 
 3. **DIAGRAMAS UML**
-4. 
+
 PUNTO 3
 ![PUNTO-3-UML](images/PUNTO-3-UML.png)
 
