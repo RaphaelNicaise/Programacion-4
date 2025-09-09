@@ -1,6 +1,6 @@
 export abstract class Empleado {
-    nombre: string;
-    salarioBase: number;
+    protected nombre: string;
+    protected salarioBase: number;
 
     constructor(nombre:string, salarioBase:number) {
         this.nombre = nombre;
