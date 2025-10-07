@@ -38,13 +38,6 @@
 
 # ⚙️ Instrucciones de ejecución
 
-1. Clonar el repositorio:  
-   ```bash
-   git clone https://github.com/RaphaelNicaise/Programacion-4.git
-   cd TP2
-   npm i
-   ```
-
 2. Correr el servidor:  
    ```bash
    npm run dev
