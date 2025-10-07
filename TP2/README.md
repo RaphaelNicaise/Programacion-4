@@ -38,18 +38,18 @@
 
 # ⚙️ Instrucciones de ejecución
 
-2. Correr el servidor:  
+1. Correr el servidor:  
    ```bash
    npm run dev
    ```
    El servidor corre por defecto en **http://localhost:3000**
 
-3. Ejecutar los tests:  
+2. Ejecutar los tests:  
    ```bash
    npm test
    ```
 
-4. Ver cobertura:  
+3. Ver coverage:  
    ```bash
    npm run test:coverage
    ```
