@@ -6,7 +6,18 @@ const getProducts = (req, res) => {
   
   // VULNERABLE: Concatenación directa de strings en SQL
   let query = 'SELECT * FROM products WHERE 1=1';
-  
+
+  try {
+    if (category.includes(';') || category.includes('--') || category.includes("'")) {
+      return res.status(200).json([])
+    }
+    if (search.includes(';') || search.includes('--') || search.includes("'")) {
+      return res.status(200).json([])
+    }
+  } catch (error) {
+    console.log(`Error: ${error}`)
+  }
+
   if (category) {
     query += ` AND category = '${category}'`;
   }
