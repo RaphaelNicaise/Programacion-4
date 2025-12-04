@@ -1,14 +1,12 @@
 const express = require('express');
 const cors = require('cors');
 const session = require('express-session');
+const cookieParser = require('cookie-parser');
 const path = require('path');
 
-// Importar configuraciones y utilidades
 const { connectWithRetry } = require('./config/database');
 const { initializeFiles } = require('./utils/fileInit');
 const { errorHandler, notFound } = require('./middleware/errorHandler');
-
-// Importar rutas
 const routes = require('./routes');
 
 const app = express();
@@ -18,32 +16,61 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser()); // necesario para csurf
 
-// Servir archivos estáticos (uploads)
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
-// Session para CSRF (vulnerable - sin token CSRF)
 app.use(session({
   secret: 'vulnerable-secret',
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false }
+  name: 'connect.sid',
+  cookie: { 
+    secure: false,
+    httpOnly: true,
+    sameSite: 'strict', 
+    path: '/'
+  },
+ 
+  rolling: true
 }));
 
-// Usar todas las rutas con prefijo /api
+
+app.use((req, res, next) => {
+  const originalSetHeader = res.setHeader;
+  res.setHeader = function(name, value) {
+    if (name.toLowerCase() === 'set-cookie') {
+      if (Array.isArray(value)) {
+        value = value.map(cookie => {
+          if (cookie.includes('connect.sid') && !cookie.includes('SameSite')) {
+            return cookie + '; SameSite=Strict';
+          }
+          return cookie;
+        });
+      } else if (typeof value === 'string') {
+        if (value.includes('connect.sid') && !value.includes('SameSite')) {
+          value = value + '; SameSite=Strict';
+        }
+      }
+    }
+    return originalSetHeader.call(this, name, value);
+  };
+  next();
+});
+
+
 app.use('/api', routes);
 
-// Middleware de manejo de errores
+
 app.use(notFound);
 app.use(errorHandler);
 
-// Inicializar archivos de ejemplo
+
 initializeFiles();
 
-// Conectar a la base de datos
-setTimeout(connectWithRetry, 5000); // Esperar 5 segundos antes de conectar
 
-// Iniciar servidor
+setTimeout(connectWithRetry, 5000); 
+
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Servidor corriendo en puerto ${PORT}`);
   console.log(`Modo: ${process.env.NODE_ENV || 'development'}`);
